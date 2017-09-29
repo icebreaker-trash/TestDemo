@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics;
 using Xunit;
 
 namespace Demo
@@ -13,7 +14,7 @@ namespace Demo
     {
         public virtual void MyMethod()
         {
-            Console.WriteLine("My Mehod");
+            Debug.WriteLine("My Mehod");
         }
     }
 
@@ -21,20 +22,20 @@ namespace Demo
     {
         public void Intercept(IInvocation invocation)
         {
-            Console.WriteLine("111111111111");
+            Debug.WriteLine(invocation.ReturnValue);
             invocation.Proceed();
-            Console.WriteLine("222");
+            Debug.WriteLine("222");
         }
     }
     
     public class Test_tests
     {
         [Fact]
+        
         public void tests()
         {
-            var proxyGenerate = new ProxyGenerator();
-            TestIntercept t = new TestIntercept(); 
-            var pg = proxyGenerate.CreateClassProxy<MyClass>(t);
+            TestIntercept t = new TestIntercept();
+            var pg = PoxyFactory<MyClass>.GetPoxyInstance(t);
             pg.MyMethod(); 
         }
     } 

@@ -18,7 +18,7 @@ namespace 控制台程序
             Console.ReadKey();
         }
 
-        public async static Task<string> GetUlrString(string url)
+        public static async Task<string> GetUlrString(string url)
         {
             using (HttpClient http = new HttpClient())
             {
